@@ -13,14 +13,13 @@
 <body>
   <h1>Visualización Interactiva de Clubes Deportivos</h1>
 
-
   <div class="grafico" id="grafico_comunas"></div>
   <div class="grafico" id="grafico_tipos"></div>
   <div class="grafico" id="grafico_barrios"></div>
 
   <script>
     // Inserción de los datos de los gráficos desde el backend (usando Flask)
-    const comunas = {{ graficos['comunas'] | safe }}; // Inserta el JSON generado en el backend (linea:46 para abajo )
+    const comunas = {{ graficos['comunas'] | safe }}; 
     const tipos = {{ graficos['tipos'] | safe }};
     const barrios = {{ graficos['barrios'] | safe }};
 
