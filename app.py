@@ -4,7 +4,7 @@ import plotly  # Importar la biblioteca Plotly para crear gráficos interactivos
 import plotly.express as px  # Importar Plotly Express para crear gráficos de manera sencilla
 import pandas as pd  # Importar pandas para manejar datos en forma de DataFrame
 from collections import Counter  # Importar Counter para contar elementos en listas
-import os  # Importar os para manejar variables de entorno (como el puerto)
+import os  # Importar os para manejar variables de entorno 
 
 app = Flask(__name__, template_folder='templates')
 
