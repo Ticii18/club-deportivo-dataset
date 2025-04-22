@@ -6,7 +6,8 @@ import pandas as pd  # Importar pandas para manejar datos en forma de DataFrame
 from collections import Counter  # Importar Counter para contar elementos en listas
 import os  # Importar os para manejar variables de entorno (como el puerto)
 
-app = Flask(__name__)  # Crear la aplicación Flask
+app = Flask(__name__, template_folder='templates')
+
 
 # Función para cargar los datos del archivo GeoJSON
 def cargar_datos():
