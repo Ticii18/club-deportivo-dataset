@@ -52,7 +52,7 @@ def generar_graficos():
 @app.route("/")
 def index():
     graficos = generar_graficos()  # Obtener los gráficos generados
-    return render_template("index.html", graficos=graficos)  # Renderizar la plantilla y pasar los gráficos
+    return render_template("pagina.html", graficos=graficos)  # Renderizar la plantilla y pasar los gráficos
 
 if __name__ == "__main__":
     # Obtener el puerto de la variable de entorno o usar el puerto 5000 por defecto
