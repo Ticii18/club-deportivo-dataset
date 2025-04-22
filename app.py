@@ -4,14 +4,14 @@ import plotly  # Importar la biblioteca Plotly para crear gráficos interactivos
 import plotly.express as px  # Importar Plotly Express para crear gráficos de manera sencilla
 import pandas as pd  # Importar pandas para manejar datos en forma de DataFrame
 from collections import Counter  # Importar Counter para contar elementos en listas
-import os  # Importar os para manejar variables de entorno 
+import os
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'))
 
-app = Flask(__name__, template_folder='templates')
 
 
 # Función para cargar los datos del archivo GeoJSON
 def cargar_datos():
-    with open("clubes_deportivos.geojson.txt", "r", encoding="utf-8") as f:  # Abrir el archivo GeoJSON
+    with open("clubes_deportivos.geojson", "r", encoding="utf-8") as f:  # Abrir el archivo GeoJSON
         data = json.load(f)
     clubs = [feature["properties"] for feature in data["features"]]  # Extraer propiedades de cada club
     
