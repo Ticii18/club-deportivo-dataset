@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualización de Clubes Deportivos</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- Carga de la librería Plotly para crear gráficos interactivos -->
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; text-align: center; padding: 20px; }
+    h1 { background-color: #3498db; color: white; padding: 20px; }
+    .grafico { margin: 40px auto; max-width: 800px; }
+  </style>
+</head>
+<body>
+  <h1>Visualización Interactiva de Clubes Deportivos</h1>
+
+
+  <div class="grafico" id="grafico_comunas"></div>
+  <div class="grafico" id="grafico_tipos"></div>
+  <div class="grafico" id="grafico_barrios"></div>
+
+  <script>
+    // Inserción de los datos de los gráficos desde el backend (usando Flask)
+    const comunas = {{ graficos['comunas'] | safe }}; // Inserta el JSON generado en el backend (linea:46 para abajo )
+    const tipos = {{ graficos['tipos'] | safe }};
+    const barrios = {{ graficos['barrios'] | safe }};
+
+    // Crear los gráficos con Plotly
+    Plotly.newPlot('grafico_comunas', comunas);
+    Plotly.newPlot('grafico_tipos', tipos);
+    Plotly.newPlot('grafico_barrios', barrios);
+  </script>
+</body>
+</html>
