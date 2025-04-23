@@ -47,7 +47,7 @@ def generar_graficos():
     }
 
     return graficos
-
+  
 # Ruta principal
 @app.route("/")
 def index():

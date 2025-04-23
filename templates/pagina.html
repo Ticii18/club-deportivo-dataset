@@ -3,30 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <title>Visualización de Clubes Deportivos</title>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- Carga de la librería Plotly para crear gráficos interactivos -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <!-- Scroll suave -->
   <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f5; text-align: center; padding: 20px; }
-    h1 { background-color: #3498db; color: white; padding: 20px; }
-    .grafico { margin: 40px auto; max-width: 800px; }
+    html {
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
-<body>
-  <h1>Visualización Interactiva de Clubes Deportivos</h1>
 
-  <div class="grafico" id="grafico_comunas"></div>
-  <div class="grafico" id="grafico_tipos"></div>
-  <div class="grafico" id="grafico_barrios"></div>
+<body class="text-gray-800 font-sans">
 
+
+  <!-- NAVBAR FIJO -->
+  <nav class="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+      <span class="text-blue-600 font-bold text-lg">Clubes Deportivos</span>
+      <ul class="flex space-x-6 text-sm font-medium">
+        <li><a href="#grafico_comunas" class="hover:text-blue-600 transition">Comunas</a></li>
+        <li><a href="#grafico_tipos" class="hover:text-blue-600 transition">Tipos</a></li>
+        <li><a href="#grafico_barrios" class="hover:text-blue-600 transition">Barrios</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PORTADA CON IMAGEN -->
+  <header class="relative h-64 bg-cover bg-center bg-blue-600">
+    <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
+      <h1 class="text-4xl font-bold">Visualización Interactiva</h1>
+      <p class="text-lg mt-2">Explorá datos por comuna, tipo y barrio</p>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="max-w-5xl mx-auto mt-10 px-4 space-y-12">
+
+    <!-- GRÁFICO COMUNAS -->
+    <section id="grafico_comunas" data-aos="fade-up">
+      <div class="bg-white shadow-lg rounded-2xl p-6">
+        <h2 class="text-xl font-semibold text-blue-700 mb-4">Distribución por Comunas</h2>
+        <div id="grafico_comunas_plot" class="h-[400px]"></div>
+      </div>
+    </section>
+
+    <!-- GRÁFICO TIPOS -->
+    <section id="grafico_tipos" data-aos="fade-up" data-aos-delay="100">
+      <div class="bg-white shadow-lg rounded-2xl p-6">
+        <h2 class="text-xl font-semibold text-blue-700 mb-4">Tipos de Clubes</h2>
+        <div id="grafico_tipos_plot" class="h-[400px]"></div>
+      </div>
+    </section>
+
+    <!-- GRÁFICO BARRIOS -->
+    <section id="grafico_barrios" data-aos="fade-up" data-aos-delay="200" class="mb-20">
+      <div class="bg-white shadow-lg rounded-2xl p-6">
+        <h2 class="text-xl font-semibold text-blue-700 mb-4">Distribución por Barrios</h2>
+        <div id="grafico_barrios_plot" class="h-[400px]"></div>
+      </div>
+    </section>
+    <br>
+    <br>
+
+  </main>
+
+  <!-- INICIALIZACIÓN DE AOS -->
   <script>
-    // Inserción de los datos de los gráficos desde el backend (usando Flask)
+    AOS.init();
+  </script>
+
+  <!-- CARGA DE GRÁFICOS -->
+  <script>
     const comunas = {{ graficos['comunas'] | safe }}; 
     const tipos = {{ graficos['tipos'] | safe }};
     const barrios = {{ graficos['barrios'] | safe }};
 
-    // Crear los gráficos con Plotly
-    Plotly.newPlot('grafico_comunas', comunas);
-    Plotly.newPlot('grafico_tipos', tipos);
-    Plotly.newPlot('grafico_barrios', barrios);
+    Plotly.newPlot('grafico_comunas_plot', comunas);
+    Plotly.newPlot('grafico_tipos_plot', tipos);
+    Plotly.newPlot('grafico_barrios_plot', barrios);
   </script>
+
 </body>
 </html>
