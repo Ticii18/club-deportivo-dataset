@@ -25,7 +25,6 @@
 
 <body class="text-gray-800 font-sans">
 
-
   <!-- NAVBAR FIJO -->
   <nav class="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
     <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
@@ -42,17 +41,29 @@
   <header class="relative h-64 bg-cover bg-center bg-blue-600">
     <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
       <h1 class="text-4xl font-bold">Visualización Interactiva</h1>
-      <p class="text-lg mt-2">Explorá datos por comuna, tipo y barrio</p>
+      <p class="text-lg mt-2 mx-auto max-w-2xl text-center">
+        Esta visualización interactiva utiliza datos oficiales del Gobierno de la Ciudad de Buenos Aires para analizar la distribución y características de los clubes deportivos en CABA. A través de diferentes gráficos, buscamos facilitar el análisis territorial y estratégico de estos espacios.
+      </p>
     </div>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
+  <!-- INTRODUCCIÓN Y CONTADOR -->
+  <section class="bg-white py-6">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold text-blue-600 mb-2">Análisis de Clubes Deportivos en CABA</h2>
+      <p class="text-gray-600 text-md mb-4">
+        Visualizamos la distribución geográfica y las características de los clubes deportivos en la Ciudad Autónoma de Buenos Aires usando datos abiertos del Gobierno de la Ciudad.
+      </p>
+    </div>
+  </section>
+
   <main class="max-w-5xl mx-auto mt-10 px-4 space-y-12">
 
     <!-- GRÁFICO COMUNAS -->
     <section id="grafico_comunas" data-aos="fade-up">
       <div class="bg-white shadow-lg rounded-2xl p-6">
         <h2 class="text-xl font-semibold text-blue-700 mb-4">Distribución por Comunas</h2>
+        <p class="text-gray-600 text-sm mb-2">Cantidad de clubes registrados en cada una de las comunas de la ciudad.</p>
         <div id="grafico_comunas_plot" class="h-[400px]"></div>
       </div>
     </section>
@@ -61,6 +72,7 @@
     <section id="grafico_tipos" data-aos="fade-up" data-aos-delay="100">
       <div class="bg-white shadow-lg rounded-2xl p-6">
         <h2 class="text-xl font-semibold text-blue-700 mb-4">Tipos de Clubes</h2>
+        <p class="text-gray-600 text-sm mb-2">Distribución proporcional según el tipo de instalación deportiva.</p>
         <div id="grafico_tipos_plot" class="h-[400px]"></div>
       </div>
     </section>
@@ -69,29 +81,48 @@
     <section id="grafico_barrios" data-aos="fade-up" data-aos-delay="200" class="mb-20">
       <div class="bg-white shadow-lg rounded-2xl p-6">
         <h2 class="text-xl font-semibold text-blue-700 mb-4">Distribución por Barrios</h2>
+        <p class="text-gray-600 text-sm mb-2">Cantidad de clubes deportivos según cada barrio porteño.</p>
         <div id="grafico_barrios_plot" class="h-[400px]"></div>
       </div>
     </section>
-    <br>
-    <br>
-
   </main>
 
-  <!-- INICIALIZACIÓN DE AOS -->
-  <script>
-    AOS.init();
-  </script>
+  <!-- FOOTER -->
+  <footer class="bg-gray-100 py-6 mt-20 border-t border-gray-300">
+    <div class="max-w-5xl mx-auto px-4 text-center text-sm text-gray-600">
+      <p>Trabajo realizado por Leonardo Gomez, Alan Riquelme Ticiano Vera – Big Data 2025</p>
+      <p>Fuente de datos: 
+        <a href="https://data.buenosaires.gob.ar/dataset/clubes" target="_blank" class="text-blue-600 hover:underline">
+          Buenos Aires Data
+        </a>
+      </p>
+    </div>
+  </footer>
 
-  <!-- CARGA DE GRÁFICOS -->
-  <script>
-    const comunas = {{ graficos['comunas'] | safe }}; 
-    const tipos = {{ graficos['tipos'] | safe }};
-    const barrios = {{ graficos['barrios'] | safe }};
+  <div id="datos-graficos"
+     data-comunas='{{ graficos["comunas"] | safe }}'
+     data-tipos='{{ graficos["tipos"] | safe }}'
+     data-barrios='{{ graficos["barrios"] | safe }}'
+     class="hidden"></div>
+     <script>
+      AOS.init();
+      
+      // Obtener los datos desde los atributos del div oculto
+      const datos = document.getElementById('datos-graficos');
+      
+      const comunas = JSON.parse(datos.dataset.comunas);
+      const tipos = JSON.parse(datos.dataset.tipos);
+      const barrios = JSON.parse(datos.dataset.barrios);
+            
+      // Dibujar los gráficos
+      Plotly.newPlot('grafico_comunas_plot', comunas);
+      Plotly.newPlot('grafico_tipos_plot', tipos);
+      Plotly.newPlot('grafico_barrios_plot', barrios);
+      
 
-    Plotly.newPlot('grafico_comunas_plot', comunas);
-    Plotly.newPlot('grafico_tipos_plot', tipos);
-    Plotly.newPlot('grafico_barrios_plot', barrios);
-  </script>
+    </script>
+    
+    
 
 </body>
 </html>
